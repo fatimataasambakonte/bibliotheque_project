@@ -31,10 +31,11 @@ ALLOWED_HOSTS = os.getenv('ALLOWED_HOSTS', 'localhost,127.0.0.1').split(',')
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = False
 
+# === ALLOWED_HOSTS - Configuration Render + Local ===
 ALLOWED_HOSTS = [
-    'bibliotheque-project-7fc0.onrender.com',  # Votre URL Render
+    'bibliotheque-project-7fc0.onrender.com',  # Votre URL Render exacte
     '.onrender.com',  # Autorise tous les sous-domaines *.onrender.com
-    'localhost', '127.0.0.1',  # Pour le développement local
+    'localhost', '127.0.0.1', '[::1]',  # Pour le développement local
 ]
 
 
