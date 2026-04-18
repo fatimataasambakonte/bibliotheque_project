@@ -15,8 +15,7 @@ import dj_database_url
 import os
 from dotenv import load_dotenv
 
-load_dotenv()  # charge le fichier .env en développement local
-
+load_dotenv()  # Charge les variables du fichier .env en local
 # Build paths inside the project like this: BASE_DIR / 'subdir'.
 BASE_DIR = Path(__file__).resolve().parent.parent
 
@@ -25,17 +24,20 @@ BASE_DIR = Path(__file__).resolve().parent.parent
 # See https://docs.djangoproject.com/en/6.0/howto/deployment/checklist/
 
 # SECURITY WARNING: keep the secret key used in production secret!
-SECRET_KEY = os.environ.get('SECRET_KEY', 'dev-only-insecure-key-change-me')
+SECRET_KEY = os.environ.get('SECRET_KEY','81rj+9+-w7x%%mc(+@$1ylik+zs%cb1ha-0c&ke=2dyqn_ezy7')
 
-DEBUG = os.environ.get('DEBUG', 'False') == 'True'
+DEBUG = os.getenv('DEBUG', 'False') == 'True'
 
-ALLOWED_HOSTS = os.environ.get('ALLOWED_HOSTS', 'localhost,127.0.0.1').split(',')
+ALLOWED_HOSTS = os.getenv('ALLOWED_HOSTS', 'localhost,127.0.0.1').split(',')
 
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = False
 
-ALLOWED_HOSTS = ['127.0.0.1', 'localhost']
-CSRF_TRUSTED_ORIGINS = []
+ALLOWED_HOSTS = [
+    'bibliotheque-project-7fc0.onrender.com',  # Votre URL Render
+    '.onrender.com',  # Autorise tous les sous-domaines *.onrender.com
+    'localhost', '127.0.0.1',  # Pour le développement local
+]
 
 
 # Application definition
@@ -112,10 +114,14 @@ WSGI_APPLICATION = 'bibliotheque_project.wsgi.application'
 # https://docs.djangoproject.com/en/6.0/ref/settings/#databases
 
 DATABASES = {
-    'default': dj_database_url.config(
-        default='sqlite:///db.sqlite3',  # fallback pour développement local
-        conn_max_age=600,
-    )
+    'default': {
+        'ENGINE': 'django.db.backends.postgresql',
+        'NAME': os.environ.get('DB_NAME', 'Base_T'),
+        'USER': os.environ.get('DB_USER', 'postgres'),
+        'PASSWORD': os.environ.get('DB_PASSWORD', 'oumy123'),
+        'HOST': os.environ.get('DB_HOST', 'localhost'),
+        'PORT': os.environ.get('DB_PORT', 5432),
+    }
 }
 
 # Password validation
