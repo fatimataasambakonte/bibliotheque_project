@@ -15,9 +15,10 @@ python manage.py migrate
 python manage.py shell -c "
 from django.contrib.auth import get_user_model
 User = get_user_model()
-if User.objects.filter(username='admin').exists():
-    User.objects.filter(username='admin').delete()
-    print('Ancien admin supprimé')
-User.objects.create_superuser('oumy', 'admin@example.com', '1234')
-print('Superuser créé')
+u, created = User.objects.get_or_create(username='oumy')
+u.is_staff = True
+u.is_superuser = True
+u.set_password('oumy2026')
+u.save()
+print('Superuser oumy mis à jour avec tous les droits')
 "
