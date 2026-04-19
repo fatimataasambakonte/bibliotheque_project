@@ -1,17 +1,10 @@
 from django.contrib import admin
 from .models import Auteur, Livre
 
-class CustomAdminSite(admin.AdminSite):
-    site_header = "Ma Bibliothèque"
-    site_title = "Admin Bibliothèque"
-    index_title = "Bienvenue sur l’admin"
-
-    class Media:
-        css = {
-            'all': ('api/admin_custom.css',)
-        }
-
-admin.site = CustomAdminSite()
+# Personnalisation du site admin existant (sans créer un nouveau)
+admin.site.site_header = "Ma Bibliothèque"
+admin.site.site_title = "Admin Bibliothèque"
+admin.site.index_title = "Bienvenue sur l'admin"
 
 @admin.register(Auteur)
 class AuteurAdmin(admin.ModelAdmin):
